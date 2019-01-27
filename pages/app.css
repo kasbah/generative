@@ -1,0 +1,7 @@
+.rc-slider-handle {
+    border: solid 2px #96dbfa
+}
+
+.rc-slider-handle:active {
+    border: solid 2px #96dbfa
+}

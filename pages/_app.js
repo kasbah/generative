@@ -1,6 +1,7 @@
 import "semantic-ui-css/semantic.min.css"
 import "rc-slider/assets/index.css"
 import "rc-color-picker/assets/index.css"
+import "./app.css"
 
 import React from "react"
 import App, {Container} from "next/app"

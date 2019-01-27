@@ -81,10 +81,24 @@ export default class App extends Component {
           <Link href="/">
             <semantic.Button basic as="a">
               <semantic.Icon name="left arrow" />
-              View Project Index
+              See more projects
             </semantic.Button>
           </Link>
-          <semantic.Button.Group basic style={{marginTop: 10}}>
+          <semantic.Button
+            style={{marginTop: 10}}
+            onClick={() => {
+              let s = new XMLSerializer()
+              let svg = document.getElementById("svg")
+              let str = s.serializeToString(svg)
+              str =
+                '<?xml version="1.0" encoding="UTF-8" standalone="no"?>' + str
+              fileDownload(str, "squares.svg")
+            }}
+          >
+            <semantic.Icon name="download" />
+            Download
+          </semantic.Button>
+          <semantic.Button.Group inverted color="blue" style={{marginTop: 10}}>
             <semantic.Button onClick={() => this.setState(this.default)}>
               <semantic.Icon name="repeat" />
               Reset
@@ -96,19 +110,6 @@ export default class App extends Component {
               Regenerate
             </semantic.Button>
           </semantic.Button.Group>
-          <semantic.Button
-            style={{marginTop: 10}}
-            onClick={() => {
-              let s = new XMLSerializer()
-              let svg = document.getElementById("svg")
-              let str = s.serializeToString(svg)
-              str = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>' + str
-              fileDownload(str, "squares.svg")
-            }}
-          >
-            <semantic.Icon name="download" />
-            Download
-          </semantic.Button>
           <NumberInput
             label="Rows:"
             max={500}
