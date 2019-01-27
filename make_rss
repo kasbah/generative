@@ -3,7 +3,6 @@
 const rss = require("rss")
 const fs = require("fs")
 const path = require("path")
-const requireJSXFileSync = require("./require_jsx")
 const mkdirp = require("mkdirp")
 
 let feed = new rss({
