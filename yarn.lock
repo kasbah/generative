@@ -2840,6 +2840,11 @@ jquery@x.*:
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
   integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
 
+js-file-download@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/js-file-download/-/js-file-download-0.4.4.tgz#51ffa5d421fc5fc25c9d1a724255a7184e4dc92b"
+  integrity sha512-lH75hwOMBkIDqIyAWgSYwkMa+YkBu/ATJf2rEXnC1TmHCCHmLNG/NFhZ6R4tipnH2v0EvLOhGlARc0vyS1j0mA==
+
 js-levenshtein@^1.1.3:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/js-levenshtein/-/js-levenshtein-1.1.6.tgz#c6cee58eb3550372df8deb85fad5ce66ce01d59d"

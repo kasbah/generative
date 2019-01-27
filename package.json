@@ -12,6 +12,7 @@
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
     "file-loader": "^1.1.11",
+    "js-file-download": "^0.4.4",
     "lodash": "^4.17.11",
     "next": "^7.0.2",
     "rc-color-picker": "^1.2.6",

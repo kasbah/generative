@@ -2,6 +2,8 @@ import React, {Component} from "react"
 import _ from "lodash"
 import * as semantic from "semantic-ui-react"
 import ColorPicker from "rc-color-picker"
+import ReactDOMServer from "react-dom/server"
+import * as fileDownload from "js-file-download"
 
 import "seedrandom"
 
@@ -43,6 +45,30 @@ export default class App extends Component {
     let border = 10
     let width = border * 2 + x * (size + gap) + freedom
     let height = border * 2 + y * (size + gap) + freedom
+    let svg = (
+      <svg
+        id="svg"
+        width={width}
+        height={height}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="100%" height="100%" fill={backgroundColor}/>
+        <Squares
+          x={x}
+          y={y}
+          size={size}
+          border={border}
+          gap={gap}
+          highlightColor={highlightColor}
+          squareColor={squareColor}
+          numberOfInnerSquares={numberOfInnerSquares}
+          backgroundColor={backgroundColor}
+          highlightThreshold={highlightThreshold}
+          freedom={freedom}
+          seed={seed}
+        />
+      </svg>
+    )
     return (
       <div
         style={{
@@ -50,25 +76,33 @@ export default class App extends Component {
           justifyContent: "space-between"
         }}
       >
-        <div style={{overflow: "auto", flexGrow: "1"}}>
-          <svg style={{backgroundColor}} width={width} height={height}>
-            <Squares
-              x={x}
-              y={y}
-              size={size}
-              border={border}
-              gap={gap}
-              highlightColor={highlightColor}
-              squareColor={squareColor}
-              numberOfInnerSquares={numberOfInnerSquares}
-              backgroundColor={backgroundColor}
-              highlightThreshold={highlightThreshold}
-              freedom={freedom}
-              seed={seed}
-            />
-          </svg>
-        </div>
-        <div style={{minWidth: 200, maxWidth: 200, margin: 20}}>
+        <div style={{overflow: "auto", flexGrow: "1"}}>{svg}</div>
+        <div style={{minWidth: 230, maxWidth: 200, margin: 20}}>
+          <semantic.Button.Group basic>
+            <semantic.Button onClick={() => this.setState(this.default)}>
+              <semantic.Icon name="repeat" />
+              Reset
+            </semantic.Button>
+            <semantic.Button
+              onClick={() => this.setState({seed: Math.random()})}
+            >
+              <semantic.Icon name="react" />
+              Regenerate
+            </semantic.Button>
+          </semantic.Button.Group>
+          <div style={{marginTop: 10}}>
+            <semantic.Button
+              onClick={() => {
+                let s = new XMLSerializer()
+                let svg = document.getElementById("svg")
+                let str = s.serializeToString(svg)
+                fileDownload(str, "squares.svg")
+              }}
+            >
+              <semantic.Icon name="download" />
+              Download
+            </semantic.Button>
+          </div>
           <NumberInput
             label="Rows:"
             max={500}
@@ -146,16 +180,6 @@ export default class App extends Component {
             </ColorPicker>
             <span style={{margin: 5}}>Square color</span>
           </div>
-          <div style={{marginTop: 20}}>
-            <semantic.Button onClick={() => this.setState(this.default)}>
-              reset
-            </semantic.Button>
-            <semantic.Button
-              onClick={() => this.setState({seed: Math.random()})}
-            >
-              regenerate
-            </semantic.Button>
-          </div>
         </div>
       </div>
     )
@@ -203,4 +227,3 @@ function Squares(props) {
     })
   })
 }
-
