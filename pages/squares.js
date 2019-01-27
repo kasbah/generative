@@ -12,13 +12,13 @@ class App extends Component {
       x: 11,
       y: 11,
       size: 50,
-      border: 10,
       gap: 5,
       numberOfInnerSquares: 4
     }
   }
   render() {
-    let {x, y, size, border, gap, numberOfInnerSquares} = this.state
+    let {x, y, size, gap, numberOfInnerSquares} = this.state
+    let border = 10
     let width = border * 2 + x * (size + gap)
     let height = border * 2 + y * (size + gap)
     let reduction = size / (numberOfInnerSquares + 1)
@@ -67,6 +67,13 @@ class App extends Component {
             value={size}
             onChange={v => this.setState({size: v})}
           />
+          <NumberInput
+            label="Gap between squares (px):"
+            min={-500}
+            max={500}
+            value={gap}
+            onChange={v => this.setState({gap: v})}
+          />
         </div>
       </div>
     )
@@ -87,6 +94,7 @@ function NumberInput(props) {
         type="number"
         value={props.value}
         onChange={(e, t) => onChange(t.value)}
+        style={{marginBottom: 3}}
       />
       <Slider
         min={props.min || 0}
