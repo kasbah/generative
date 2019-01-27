@@ -6,13 +6,14 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
+    "export": "next export",
     "start": "next start"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
     "file-loader": "^1.1.11",
     "lodash": "^4.17.11",
-    "next": "latest",
+    "next": "^7.0.2",
     "rc-color-picker": "^1.2.6",
     "rc-slider": "^8.6.4",
     "react": "^16.7.0",

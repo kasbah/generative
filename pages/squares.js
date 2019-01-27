@@ -7,11 +7,7 @@ import "seedrandom"
 
 import NumberInput from "../components/NumberInput"
 
-import "semantic-ui-css/semantic.min.css"
-import "rc-slider/assets/index.css"
-import "rc-color-picker/assets/index.css"
-
-class App extends Component {
+export default class App extends Component {
   constructor(...args) {
     super(...args)
     let saved
@@ -208,4 +204,3 @@ function Squares(props) {
   })
 }
 
-export default App
