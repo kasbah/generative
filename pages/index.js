@@ -28,8 +28,17 @@ export default () => (
         <List.Item disabled>
           <List.Content>More to come...</List.Content>
         </List.Item>
+        <List.Item>
+          <List.Content>
+            <a href="/feed.xml">subscribe rss</a>
+          </List.Content>
+        </List.Item>
+        <List.Item>
+          <List.Content>
+            <a href="https://monostable.co.uk">monostable.co.uk</a>
+          </List.Content>
+        </List.Item>
       </List>
-      <a href="https://monostable.co.uk">monostable.co.uk</a>
     </Segment>
   </Container>
 )
