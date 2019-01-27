@@ -7,7 +7,7 @@ export default () => (
       <List selection verticalAlign="middle">
         <Link href="/squares">
           <List.Item as="a">
-            <Image src="/static/squares.png" />
+            <Image src="/static/squares_thumb.png" />
 
             <List.Content>
               <List.Header>squares</List.Header>
