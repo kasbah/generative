@@ -44,6 +44,18 @@ class App extends Component {
         </div>
         <div style={{minWidth: 200, maxWidth: 200, margin: 20}}>
           <NumberInput
+            label="Rows:"
+            max={500}
+            value={y}
+            onChange={v => this.setState({y: v})}
+          />
+          <NumberInput
+            label="Columns:"
+            max={500}
+            value={x}
+            onChange={v => this.setState({x: v})}
+          />
+          <NumberInput
             label="Number of inner squares:"
             max={50}
             value={numberOfInnerSquares}
@@ -68,12 +80,13 @@ function NumberInput(props) {
     props.onChange(v)
   }
   return (
-    <>
-      {props.label}{" "}
+    <div style={{marginTop: 10}}>
+      <div>{props.label}{" "}</div>
       <semantic.Input
+        size="mini"
         type="number"
-        value={props.value || props.min || 0}
-        onChange={onChange}
+        value={props.value}
+        onChange={(e, t) => onChange(t.value)}
       />
       <Slider
         min={props.min || 0}
@@ -81,7 +94,7 @@ function NumberInput(props) {
         value={props.value || props.min || 0}
         onChange={onChange}
       />
-    </>
+    </div>
   )
 }
 
