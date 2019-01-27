@@ -8,13 +8,14 @@ import "semantic-ui-css/semantic.min.css"
 class App extends Component {
   constructor(...args) {
     super(...args)
-    this.state = {
+    this.default = {
       x: 11,
       y: 11,
       size: 50,
       gap: 5,
       numberOfInnerSquares: 4
     }
+    this.state = this.default
   }
   render() {
     let {x, y, size, gap, numberOfInnerSquares} = this.state
@@ -74,6 +75,14 @@ class App extends Component {
             value={gap}
             onChange={v => this.setState({gap: v})}
           />
+          <div style={{marginTop: 20}}>
+            <semantic.Button onClick={() => this.setState(this.default)}>
+              reset
+            </semantic.Button>
+            <semantic.Button onClick={() => this.setState({})}>
+              re-draw
+            </semantic.Button>
+          </div>
         </div>
       </div>
     )
@@ -88,7 +97,7 @@ function NumberInput(props) {
   }
   return (
     <div style={{marginTop: 10}}>
-      <div>{props.label}{" "}</div>
+      <div>{props.label + " "}</div>
       <semantic.Input
         size="mini"
         type="number"
