@@ -23,6 +23,7 @@ class App extends Component {
       backgroundColor: "white",
       highlightColor: "#FD5F00",
       squareColor: "black",
+      highlightThreshold: 800,
       numberOfInnerSquares: 4
     }
     this.state = this.default
@@ -38,6 +39,7 @@ class App extends Component {
       highlightColor,
       backgroundColor,
       squareColor,
+      highlightThreshold,
       seed
     } = this.state
     let border = 10
@@ -67,6 +69,7 @@ class App extends Component {
               squareColor={squareColor}
               numberOfInnerSquares={numberOfInnerSquares}
               backgroundColor={backgroundColor}
+              highlightThreshold={highlightThreshold}
               seed={seed}
             />
           </svg>
@@ -102,6 +105,13 @@ class App extends Component {
             max={500}
             value={gap}
             onChange={v => this.setState({gap: v})}
+          />
+          <NumberInput
+            label="Highlight threshold"
+            min={0}
+            max={1000}
+            value={highlightThreshold}
+            onChange={v => this.setState({highlightThreshold: v})}
           />
           <div style={{display: "flex", marginTop: 20}}>
             <ColorPicker
@@ -161,7 +171,10 @@ function Squares(props) {
       let jr = random()
       return _.range(props.numberOfInnerSquares + 1).map(k => {
         let kr = random()
-        let stroke = ir * jr > 0.8 ? props.highlightColor : props.squareColor
+        let stroke =
+          ir * jr > props.highlightThreshold / 1000
+            ? props.highlightColor
+            : props.squareColor
         return (
           <rect
             key={`${i}${j}${k}`}
