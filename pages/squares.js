@@ -12,10 +12,6 @@ class App extends Component {
   constructor(...args) {
     super(...args)
     let saved
-    if (typeof window !== "undefined") {
-      /* global localStorage */
-      //saved = JSON.parse(localStorage.getItem("squares-state"))
-    }
     this.default = {
       x: 11,
       y: 11,
@@ -25,7 +21,7 @@ class App extends Component {
       numberOfInnerSquares: 4
     }
     this.state = this.default
-    this.state.seed = randomSeed()
+    this.state.seed = Math.random()
   }
   render() {
     let {
@@ -37,9 +33,6 @@ class App extends Component {
       highlightColor,
       seed
     } = this.state
-    if (typeof window !== "undefined") {
-      localStorage.setItem("squares-state", JSON.stringify(this.state))
-    }
     let border = 10
     let width = border * 2 + x * (size + gap)
     let height = border * 2 + y * (size + gap)
@@ -108,13 +101,11 @@ class App extends Component {
             </ColorPicker>
           </div>
           <div style={{marginTop: 20}}>
-            <semantic.Button
-              onClick={() => this.setState(Object.assign(this.default, {seed}))}
-            >
+            <semantic.Button onClick={() => this.setState(this.default)}>
               reset
             </semantic.Button>
             <semantic.Button
-              onClick={() => this.setState({seed: randomSeed()})}
+              onClick={() => this.setState({seed: Math.random()})}
             >
               regenerate
             </semantic.Button>
@@ -125,14 +116,6 @@ class App extends Component {
   }
 }
 
-function randomSeed() {
-  let text = ""
-  let possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-  for (let i = 0; i < 5; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length))
-  return text
-}
 
 function NumberInput(props) {
   function onChange(v) {
@@ -190,7 +173,7 @@ function Squares(props) {
             style={{
               fill: "rgba(0, 0, 0, 0)",
               strokeWidth: kr * 6,
-              stroke,
+              stroke
             }}
           />
         )
