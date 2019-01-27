@@ -20,7 +20,9 @@ class App extends Component {
       y: 11,
       size: 50,
       gap: 5,
+      backgroundColor: "white",
       highlightColor: "#FD5F00",
+      squareColor: "black",
       numberOfInnerSquares: 4
     }
     this.state = this.default
@@ -34,6 +36,8 @@ class App extends Component {
       gap,
       numberOfInnerSquares,
       highlightColor,
+      backgroundColor,
+      squareColor,
       seed
     } = this.state
     let border = 10
@@ -47,7 +51,12 @@ class App extends Component {
         }}
       >
         <div style={{overflow: "auto", flexGrow: "1"}}>
-          <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+          <svg
+            viewBox={`0 0 ${width + border} ${height + border}`}
+            style={{backgroundColor}}
+            width={width}
+            height={height}
+          >
             <Squares
               x={x}
               y={y}
@@ -55,7 +64,9 @@ class App extends Component {
               border={border}
               gap={gap}
               highlightColor={highlightColor}
+              squareColor={squareColor}
               numberOfInnerSquares={numberOfInnerSquares}
+              backgroundColor={backgroundColor}
               seed={seed}
             />
           </svg>
@@ -93,15 +104,37 @@ class App extends Component {
             onChange={v => this.setState({gap: v})}
           />
           <div style={{display: "flex", marginTop: 20}}>
-            <span style={{marginRight: 5}}>Highlight color:</span>
             <ColorPicker
               color={highlightColor}
               onChange={({color}) => this.setState({highlightColor: color})}
               placement="topLeft"
-              className="some-class"
+              enableAlpha={false}
             >
               <span className="rc-color-picker-trigger" />
             </ColorPicker>
+            <span style={{margin: 5}}>Highlight color</span>
+          </div>
+          <div style={{display: "flex"}}>
+            <ColorPicker
+              color={backgroundColor}
+              onChange={({color}) => this.setState({backgroundColor: color})}
+              placement="topLeft"
+              enableAlpha={false}
+            >
+              <span className="rc-color-picker-trigger" />
+            </ColorPicker>
+            <span style={{margin: 5}}>Background color</span>
+          </div>
+          <div style={{display: "flex"}}>
+            <ColorPicker
+              color={squareColor}
+              onChange={({color}) => this.setState({squareColor: color})}
+              placement="topLeft"
+              enableAlpha={false}
+            >
+              <span className="rc-color-picker-trigger" />
+            </ColorPicker>
+            <span style={{margin: 5}}>Square color</span>
           </div>
           <div style={{marginTop: 20}}>
             <semantic.Button onClick={() => this.setState(this.default)}>
@@ -128,7 +161,7 @@ function Squares(props) {
       let jr = random()
       return _.range(props.numberOfInnerSquares + 1).map(k => {
         let kr = random()
-        let stroke = ir * jr > 0.8 ? props.highlightColor : "black"
+        let stroke = ir * jr > 0.8 ? props.highlightColor : props.squareColor
         return (
           <rect
             key={`${i}${j}${k}`}
