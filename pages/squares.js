@@ -224,7 +224,7 @@ function Squares(props) {
               ir * props.freedom
             }
             style={{
-              fill: "rgba(0, 0, 0, 0)",
+              fill: "none",
               strokeWidth: kr * 6,
               stroke
             }}
