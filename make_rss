@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+
+const rss = require("rss")
+const fs = require("fs")
+const path = require("path")
+const requireJSXFileSync = require("./require_jsx")
+const mkdirp = require("mkdirp")
+
+let feed = new rss({
+  title: "generative.monostable.co.uk",
+  description: "Generative art by Kaspar Emanuel",
+  feed_url: "https://generative.monostable.co.uk/feed.xml",
+  site_url: "https://generative.monostable.co.uk",
+  image_url: "https://generative.monostable.co.uk/static/squares_thumb.png",
+  author: "Kaspar Emanuel"
+})
+
+feed.item({
+  title: "squares",
+  description:
+    '<a href="https://generative.monostable.co.uk/squares"><img src="https://generative.monostable.co.uk/static/squares_full.png" /></a>',
+  site_url: "https://generative.monostable.co.uk/squares/",
+  date: "Sun Jan 27 2019"
+})
+
+mkdirp.sync("./out")
+
+fs.writeFileSync("./out/feed.xml", feed.xml())
