@@ -29,6 +29,7 @@ export default () => (
           <List.Content>More to come...</List.Content>
         </List.Item>
       </List>
+      <a href="https://monostable.co.uk">monostable.co.uk</a>
     </Segment>
   </Container>
 )
