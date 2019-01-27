@@ -1,4 +1,5 @@
 import React, {Component} from "react"
+import Head from "next/head"
 import Link from "next/link"
 import _ from "lodash"
 import * as semantic from "semantic-ui-react"
@@ -8,6 +9,7 @@ import * as fileDownload from "js-file-download"
 import "seedrandom"
 
 import NumberInput from "../components/NumberInput"
+import Meta from "../components/Meta"
 
 export default class App extends Component {
   constructor(...args) {
@@ -76,6 +78,16 @@ export default class App extends Component {
           justifyContent: "space-between"
         }}
       >
+    <Head>
+      <title>squares - generative.monostable.co.uk</title>
+      <Meta
+        title="generative.monostable.co.uk"
+        description="Generative art by Kaspar Emanuel"
+        image="https://generative.monostable.co.uk/static/squares_full.png"
+        imageWidth="635"
+        imageHeight="635"
+      />
+    </Head>
         <div style={{overflow: "auto", flexGrow: "1"}}>{svg}</div>
         <div style={{minWidth: 230, maxWidth: 200, margin: 20}}>
           <Link href="/">
