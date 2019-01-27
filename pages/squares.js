@@ -1,8 +1,8 @@
 import React, {Component} from "react"
+import Link from "next/link"
 import _ from "lodash"
 import * as semantic from "semantic-ui-react"
 import ColorPicker from "rc-color-picker"
-import ReactDOMServer from "react-dom/server"
 import * as fileDownload from "js-file-download"
 
 import "seedrandom"
@@ -52,7 +52,7 @@ export default class App extends Component {
         height={height}
         xmlns="http://www.w3.org/2000/svg"
       >
-        <rect width="100%" height="100%" fill={backgroundColor}/>
+        <rect width="100%" height="100%" fill={backgroundColor} />
         <Squares
           x={x}
           y={y}
@@ -78,7 +78,13 @@ export default class App extends Component {
       >
         <div style={{overflow: "auto", flexGrow: "1"}}>{svg}</div>
         <div style={{minWidth: 230, maxWidth: 200, margin: 20}}>
-          <semantic.Button.Group basic>
+          <Link href="/">
+            <semantic.Button basic as="a">
+              <semantic.Icon name="left arrow" />
+              View Project Index
+            </semantic.Button>
+          </Link>
+          <semantic.Button.Group basic style={{marginTop: 10}}>
             <semantic.Button onClick={() => this.setState(this.default)}>
               <semantic.Icon name="repeat" />
               Reset
@@ -90,19 +96,19 @@ export default class App extends Component {
               Regenerate
             </semantic.Button>
           </semantic.Button.Group>
-          <div style={{marginTop: 10}}>
-            <semantic.Button
-              onClick={() => {
-                let s = new XMLSerializer()
-                let svg = document.getElementById("svg")
-                let str = s.serializeToString(svg)
-                fileDownload(str, "squares.svg")
-              }}
-            >
-              <semantic.Icon name="download" />
-              Download
-            </semantic.Button>
-          </div>
+          <semantic.Button
+            style={{marginTop: 10}}
+            onClick={() => {
+              let s = new XMLSerializer()
+              let svg = document.getElementById("svg")
+              let str = s.serializeToString(svg)
+              str = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>' + str
+              fileDownload(str, "squares.svg")
+            }}
+          >
+            <semantic.Icon name="download" />
+            Download
+          </semantic.Button>
           <NumberInput
             label="Rows:"
             max={500}
