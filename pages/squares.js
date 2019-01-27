@@ -78,16 +78,16 @@ export default class App extends Component {
           justifyContent: "space-between"
         }}
       >
-    <Head>
-      <title>squares - generative.monostable.co.uk</title>
-      <Meta
-        title="squares"
-        description="Generative art by Kaspar Emanuel"
-        image="https://generative.monostable.co.uk/static/squares_full.png"
-        imageWidth="635"
-        imageHeight="635"
-      />
-    </Head>
+        <Head>
+          <title>squares - generative.monostable.co.uk</title>
+          <Meta
+            title="squares"
+            description="Generative art by Kaspar Emanuel"
+            image="https://generative.monostable.co.uk/static/squares_full.png"
+            imageWidth="635"
+            imageHeight="635"
+          />
+        </Head>
         <div style={{overflow: "auto", flexGrow: "1"}}>{svg}</div>
         <div style={{minWidth: 230, maxWidth: 200, margin: 20}}>
           <Link href="/">
@@ -199,6 +199,9 @@ export default class App extends Component {
             </ColorPicker>
             <span style={{margin: 5}}>Square color</span>
           </div>
+          <a href="https://github.com/kasbah/generative/blob/master/pages/squares.js">
+            source code
+          </a>
         </div>
       </div>
     )
