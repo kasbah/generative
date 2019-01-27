@@ -6,49 +6,59 @@ import "rc-slider/assets/index.css"
 import "semantic-ui-css/semantic.min.css"
 
 class App extends Component {
+  constructor(...args) {
+    super(...args)
+    this.state = {
+      x: 11,
+      y: 11,
+      size: 50,
+      border: 10,
+      gap: 5,
+      numberOfInnerSquares: 5
+    }
+  }
+  setNumberOfSquares = n => {
+    n = Math.min(n, 50)
+    n = Math.max(n, 0)
+    this.setState({numberOfInnerSquares: n + 1})
+  }
   render() {
-    let x = 11
-    let y = 11
-    let size = 50
-    let border = 10
-    let gap = 5
+    let {x, y, size, border, gap, numberOfInnerSquares} = this.state
     let width = border * 2 + x * (size + gap)
     let height = border * 2 + y * (size + gap)
-    let numberOfInnerSquares = 5
     let reduction = size / numberOfInnerSquares
     return (
-      <div className="App">
-        <semantic.Sidebar.Pushable>
-          <semantic.Sidebar
-            as={semantic.Form}
-            animation="push"
-            icon="labeled"
-            vertical
-            visible={true}
-            width="wide"
-          >
-            <Slider />
-          </semantic.Sidebar>
-          <semantic.Sidebar.Pusher>
-            <semantic.Container>
-              <svg
-                viewBox={`0 0 ${width} ${height}`}
-                width={width}
-                height={height}
-              >
-                <Squares
-                  x={x}
-                  y={y}
-                  size={size}
-                  border={border}
-                  gap={gap}
-                  reduction={reduction}
-                  numberOfInnerSquares={numberOfInnerSquares}
-                />
-              </svg>
-            </semantic.Container>
-          </semantic.Sidebar.Pusher>
-        </semantic.Sidebar.Pushable>
+      <div
+        style={{
+          display: "flex"
+        }}
+      >
+        <div style={{overflow: "scroll"}}>
+          <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+            <Squares
+              x={x}
+              y={y}
+              size={size}
+              border={border}
+              gap={gap}
+              reduction={reduction}
+              numberOfInnerSquares={numberOfInnerSquares}
+            />
+          </svg>
+        </div>
+        <div style={{width: 200, margin: 20}}>
+          Number of inner squares:{" "}
+          <semantic.Input
+            type="number"
+            value={(numberOfInnerSquares || 1) - 1}
+            onChange={(e, t) => this.setNumberOfSquares(t.value)}
+          />
+          <Slider
+            max={50}
+            value={(numberOfInnerSquares || 1) - 1}
+            onChange={this.setNumberOfSquares}
+          />
+        </div>
       </div>
     )
   }
