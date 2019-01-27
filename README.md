@@ -3,10 +3,7 @@
 Generative art using ReactJS.
 
 
-<a href="https://generative.monostable.co.uk/squares/">
 
-# squares
+# [squares](https://generative.monostable.co.uk/squares/)
 
-![squares example](static/squares_full.png)
-
-</a>
+[![squares example](static/squares_full.png)](https://generative.monostable.co.uk/squares/)
