@@ -116,10 +116,9 @@ class App extends Component {
   }
 }
 
-
 function NumberInput(props) {
   function onChange(v) {
-    v = Math.max(v, props.min || 0)
+    v = Math.max(v, props.min == null ? 0 : props.min)
     v = Math.min(v, props.max == null ? 100 : props.max)
     props.onChange(v)
   }
@@ -134,8 +133,8 @@ function NumberInput(props) {
         style={{marginBottom: 3}}
       />
       <Slider
-        min={props.min || 0}
-        max={props.max || 100}
+        min={props.min == null ? 0 : props.min}
+        max={props.max == null ? 100 : props.max}
         value={props.value || props.min || 0}
         onChange={onChange}
       />
