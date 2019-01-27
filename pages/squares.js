@@ -1,9 +1,12 @@
 import React, {Component} from "react"
 import _ from "lodash"
 import * as semantic from "semantic-ui-react"
-import Slider, {Range} from "rc-slider"
 import ColorPicker from "rc-color-picker"
+
 import "seedrandom"
+
+import NumberInput from "../components/NumberInput"
+
 import "semantic-ui-css/semantic.min.css"
 import "rc-slider/assets/index.css"
 import "rc-color-picker/assets/index.css"
@@ -114,32 +117,6 @@ class App extends Component {
       </div>
     )
   }
-}
-
-function NumberInput(props) {
-  function onChange(v) {
-    v = Math.max(v, props.min == null ? 0 : props.min)
-    v = Math.min(v, props.max == null ? 100 : props.max)
-    props.onChange(v)
-  }
-  return (
-    <div style={{marginTop: 10}}>
-      <div>{props.label + " "}</div>
-      <semantic.Input
-        size="mini"
-        type="number"
-        value={props.value}
-        onChange={(e, t) => onChange(t.value)}
-        style={{marginBottom: 3}}
-      />
-      <Slider
-        min={props.min == null ? 0 : props.min}
-        max={props.max == null ? 100 : props.max}
-        value={props.value || props.min || 0}
-        onChange={onChange}
-      />
-    </div>
-  )
 }
 
 function Squares(props) {
