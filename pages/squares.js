@@ -2,27 +2,47 @@ import React, {Component} from "react"
 import _ from "lodash"
 import * as semantic from "semantic-ui-react"
 import Slider, {Range} from "rc-slider"
-import "rc-slider/assets/index.css"
+import ColorPicker from "rc-color-picker"
+import "seedrandom"
 import "semantic-ui-css/semantic.min.css"
+import "rc-slider/assets/index.css"
+import "rc-color-picker/assets/index.css"
 
 class App extends Component {
   constructor(...args) {
     super(...args)
+    let saved
+    if (typeof window !== "undefined") {
+      /* global localStorage */
+      //saved = JSON.parse(localStorage.getItem("squares-state"))
+    }
     this.default = {
       x: 11,
       y: 11,
       size: 50,
       gap: 5,
+      highlightColor: "#FD5F00",
       numberOfInnerSquares: 4
     }
     this.state = this.default
+    this.state.seed = randomSeed()
   }
   render() {
-    let {x, y, size, gap, numberOfInnerSquares} = this.state
+    let {
+      x,
+      y,
+      size,
+      gap,
+      numberOfInnerSquares,
+      highlightColor,
+      seed
+    } = this.state
+    if (typeof window !== "undefined") {
+      localStorage.setItem("squares-state", JSON.stringify(this.state))
+    }
     let border = 10
     let width = border * 2 + x * (size + gap)
     let height = border * 2 + y * (size + gap)
-    let reduction = size / (numberOfInnerSquares + 1)
     return (
       <div
         style={{
@@ -38,8 +58,9 @@ class App extends Component {
               size={size}
               border={border}
               gap={gap}
-              reduction={reduction}
+              highlightColor={highlightColor}
               numberOfInnerSquares={numberOfInnerSquares}
+              seed={seed}
             />
           </svg>
         </div>
@@ -75,18 +96,42 @@ class App extends Component {
             value={gap}
             onChange={v => this.setState({gap: v})}
           />
+          <div style={{display: "flex", marginTop: 20}}>
+            <span style={{marginRight: 5}}>Highlight color:</span>
+            <ColorPicker
+              color={highlightColor}
+              onChange={({color}) => this.setState({highlightColor: color})}
+              placement="topLeft"
+              className="some-class"
+            >
+              <span className="rc-color-picker-trigger" />
+            </ColorPicker>
+          </div>
           <div style={{marginTop: 20}}>
-            <semantic.Button onClick={() => this.setState(this.default)}>
+            <semantic.Button
+              onClick={() => this.setState(Object.assign(this.default, {seed}))}
+            >
               reset
             </semantic.Button>
-            <semantic.Button onClick={() => this.setState({})}>
-              re-draw
+            <semantic.Button
+              onClick={() => this.setState({seed: randomSeed()})}
+            >
+              regenerate
             </semantic.Button>
           </div>
         </div>
       </div>
     )
   }
+}
+
+function randomSeed() {
+  let text = ""
+  let possible =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+  for (let i = 0; i < 5; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length))
+  return text
 }
 
 function NumberInput(props) {
@@ -116,32 +161,36 @@ function NumberInput(props) {
 }
 
 function Squares(props) {
+  let random = new Math.seedrandom(props.seed)
+  let reduction = props.size / (props.numberOfInnerSquares + 1)
   return _.range(props.x).map(i => {
-    let ir = Math.random()
+    let ir = random()
     return _.range(props.y).map(j => {
-      let jr = Math.random()
+      let jr = random()
       return _.range(props.numberOfInnerSquares + 1).map(k => {
-        let kr = Math.random()
+        let kr = random()
+        let stroke = ir * jr > 0.8 ? props.highlightColor : "black"
         return (
           <rect
-            width={props.size - props.reduction * k}
-            height={props.size - props.reduction * k}
+            key={`${i}${j}${k}`}
+            width={props.size - reduction * k}
+            height={props.size - reduction * k}
             x={
               props.border +
-              (props.reduction / 2) * k +
+              (reduction / 2) * k +
               i * (props.size + props.gap) +
               jr * 10
             }
             y={
               props.border +
-              (props.reduction / 2) * k +
+              (reduction / 2) * k +
               j * (props.size + props.gap) +
               ir * 10
             }
             style={{
               fill: "rgba(0, 0, 0, 0)",
               strokeWidth: kr * 6,
-              stroke: ir * jr > 0.8 ? "#FD5F00" : "black"
+              stroke,
             }}
           />
         )

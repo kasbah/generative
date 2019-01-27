@@ -13,9 +13,11 @@
     "file-loader": "^1.1.11",
     "lodash": "^4.17.11",
     "next": "latest",
+    "rc-color-picker": "^1.2.6",
     "rc-slider": "^8.6.4",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "seedrandom": "^2.4.4",
     "semantic-ui-css": "^2.3.3",
     "semantic-ui-react": "^0.82.0",
     "url-loader": "^1.0.1"
