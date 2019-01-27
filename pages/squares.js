@@ -200,12 +200,12 @@ function Squares(props) {
     let ir = random()
     return _.range(props.y).map(j => {
       let jr = random()
+      let stroke =
+        ir * jr > props.highlightThreshold / 1000
+          ? props.highlightColor
+          : props.squareColor
       return _.range(props.numberOfInnerSquares + 1).map(k => {
         let kr = random()
-        let stroke =
-          ir * jr > props.highlightThreshold / 1000
-            ? props.highlightColor
-            : props.squareColor
         return (
           <rect
             key={`${i}${j}${k}`}
