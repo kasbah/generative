@@ -1,5 +1,9 @@
 import React, {Component} from "react"
 import _ from "lodash"
+import * as semantic from "semantic-ui-react"
+import Slider, {Range} from "rc-slider"
+import "rc-slider/assets/index.css"
+import "semantic-ui-css/semantic.min.css"
 
 class App extends Component {
   render() {
@@ -14,17 +18,37 @@ class App extends Component {
     let reduction = size / numberOfInnerSquares
     return (
       <div className="App">
-        <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
-          <Squares
-            x={x}
-            y={y}
-            size={size}
-            border={border}
-            gap={gap}
-            reduction={reduction}
-            numberOfInnerSquares={numberOfInnerSquares}
-          />
-        </svg>
+        <semantic.Sidebar.Pushable>
+          <semantic.Sidebar
+            as={semantic.Form}
+            animation="push"
+            icon="labeled"
+            vertical
+            visible={true}
+            width="wide"
+          >
+            <Slider />
+          </semantic.Sidebar>
+          <semantic.Sidebar.Pusher>
+            <semantic.Container>
+              <svg
+                viewBox={`0 0 ${width} ${height}`}
+                width={width}
+                height={height}
+              >
+                <Squares
+                  x={x}
+                  y={y}
+                  size={size}
+                  border={border}
+                  gap={gap}
+                  reduction={reduction}
+                  numberOfInnerSquares={numberOfInnerSquares}
+                />
+              </svg>
+            </semantic.Container>
+          </semantic.Sidebar.Pusher>
+        </semantic.Sidebar.Pushable>
       </div>
     )
   }
