@@ -24,6 +24,7 @@ class App extends Component {
       highlightColor: "#FD5F00",
       squareColor: "black",
       highlightThreshold: 800,
+      freedom: 10,
       numberOfInnerSquares: 4
     }
     this.state = this.default
@@ -40,11 +41,12 @@ class App extends Component {
       backgroundColor,
       squareColor,
       highlightThreshold,
+      freedom,
       seed
     } = this.state
     let border = 10
-    let width = border * 2 + x * (size + gap)
-    let height = border * 2 + y * (size + gap)
+    let width = border * 2 + x * (size + gap) + freedom
+    let height = border * 2 + y * (size + gap) + freedom
     return (
       <div
         style={{
@@ -53,12 +55,7 @@ class App extends Component {
         }}
       >
         <div style={{overflow: "auto", flexGrow: "1"}}>
-          <svg
-            viewBox={`0 0 ${width + border} ${height + border}`}
-            style={{backgroundColor}}
-            width={width}
-            height={height}
-          >
+          <svg style={{backgroundColor}} width={width} height={height}>
             <Squares
               x={x}
               y={y}
@@ -70,6 +67,7 @@ class App extends Component {
               numberOfInnerSquares={numberOfInnerSquares}
               backgroundColor={backgroundColor}
               highlightThreshold={highlightThreshold}
+              freedom={freedom}
               seed={seed}
             />
           </svg>
@@ -105,6 +103,12 @@ class App extends Component {
             max={500}
             value={gap}
             onChange={v => this.setState({gap: v})}
+          />
+          <NumberInput
+            label="Square freedom"
+            max={1000}
+            value={freedom}
+            onChange={v => this.setState({freedom: v})}
           />
           <NumberInput
             label="Highlight threshold"
@@ -184,13 +188,13 @@ function Squares(props) {
               props.border +
               (reduction / 2) * k +
               i * (props.size + props.gap) +
-              jr * 10
+              jr * props.freedom
             }
             y={
               props.border +
               (reduction / 2) * k +
               j * (props.size + props.gap) +
-              ir * 10
+              ir * props.freedom
             }
             style={{
               fill: "rgba(0, 0, 0, 0)",
