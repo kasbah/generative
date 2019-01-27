@@ -81,7 +81,7 @@ export default class App extends Component {
     <Head>
       <title>squares - generative.monostable.co.uk</title>
       <Meta
-        title="generative.monostable.co.uk"
+        title="squares"
         description="Generative art by Kaspar Emanuel"
         image="https://generative.monostable.co.uk/static/squares_full.png"
         imageWidth="635"
