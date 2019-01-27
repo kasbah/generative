@@ -6,6 +6,7 @@ import Meta from "../components/Meta"
 export default () => (
   <Container style={{marginTop: 100}}>
     <Head>
+      <title>generative.monostable.co.uk</title>
       <Meta
         title="generative.monostable.co.uk"
         description="Generative art by Kaspar Emanuel"
@@ -28,15 +29,11 @@ export default () => (
         <List.Item disabled>
           <List.Content>More to come...</List.Content>
         </List.Item>
-        <List.Item as='a' href="/feed.xml">
-          <List.Content>
-            subscribe rss
-          </List.Content>
+        <List.Item as="a" href="/feed.xml">
+          <List.Content>subscribe rss</List.Content>
         </List.Item>
-        <List.Item as='a'  href="https://monostable.co.uk">
-          <List.Content>
-            monostable.co.uk
-          </List.Content>
+        <List.Item as="a" href="https://monostable.co.uk">
+          <List.Content>monostable.co.uk</List.Content>
         </List.Item>
       </List>
     </Segment>

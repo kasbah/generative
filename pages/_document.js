@@ -14,7 +14,6 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <title>generative.monostable.co.uk</title>
           <meta
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
