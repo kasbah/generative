@@ -17,11 +17,6 @@ class App extends Component {
       numberOfInnerSquares: 4
     }
   }
-  setNumberOfSquares = n => {
-    n = Math.min(n, 50)
-    n = Math.max(n, 0)
-    this.setState({numberOfInnerSquares: n})
-  }
   render() {
     let {x, y, size, border, gap, numberOfInnerSquares} = this.state
     let width = border * 2 + x * (size + gap)
@@ -48,25 +43,15 @@ class App extends Component {
           </svg>
         </div>
         <div style={{minWidth: 200, maxWidth: 200, margin: 20}}>
-          Number of inner squares:{" "}
-          <semantic.Input
-            type="number"
-            value={numberOfInnerSquares || 0}
-            onChange={(e, t) => this.setNumberOfSquares(t.value)}
-          />
-          <Slider
+          <NumberInput
+            label="Number of inner squares:"
             max={50}
-            value={numberOfInnerSquares || 0}
-            onChange={this.setNumberOfSquares}
+            value={numberOfInnerSquares}
+            onChange={v => this.setState({numberOfInnerSquares: v})}
           />
-          Square size:{" "}
-          <semantic.Input
-            type="number"
-            value={size}
-            onChange={(e, t) => this.setState({size: t.value})}
-          />
-          <Slider
-            max={200}
+          <NumberInput
+            label="Square size (px):"
+            max={500}
             value={size}
             onChange={v => this.setState({size: v})}
           />
@@ -77,7 +62,27 @@ class App extends Component {
 }
 
 function NumberInput(props) {
-  return <>{props.label}</>
+  function onChange(v) {
+    v = Math.max(v, props.min || 0)
+    v = Math.min(v, props.max == null ? 100 : props.max)
+    props.onChange(v)
+  }
+  return (
+    <>
+      {props.label}{" "}
+      <semantic.Input
+        type="number"
+        value={props.value || props.min || 0}
+        onChange={onChange}
+      />
+      <Slider
+        min={props.min || 0}
+        max={props.max || 100}
+        value={props.value || props.min || 0}
+        onChange={onChange}
+      />
+    </>
+  )
 }
 
 function Squares(props) {
