@@ -124,13 +124,13 @@ export default class App extends Component {
           </semantic.Button.Group>
           <NumberInput
             label="Rows:"
-            max={500}
+            max={100}
             value={y}
             onChange={v => this.setState({y: v})}
           />
           <NumberInput
             label="Columns:"
-            max={500}
+            max={100}
             value={x}
             onChange={v => this.setState({x: v})}
           />
