@@ -5,13 +5,17 @@ import Slider from "rc-slider"
 export default class NumberInput extends React.Component {
   state = {temp: null}
   onInputChange = (e, t) => {
-    clearTimeout(this.timer)
     let v = parseInt(t.value, 10)
-    this.setTempValue(v)
-    this.timer = setTimeout(() => {
+    if (this.props.debounce != null) {
       clearTimeout(this.timer)
+      this.setTempValue(v)
+      this.timer = setTimeout(() => {
+        clearTimeout(this.timer)
+        this.onChange(v)
+      }, 500)
+    } else {
       this.onChange(v)
-    }, 500)
+    }
   }
   onChange = v => {
     v = Math.max(v, this.props.min == null ? 0 : this.props.min)
@@ -20,7 +24,11 @@ export default class NumberInput extends React.Component {
     this.setState({temp: null})
   }
   setTempValue = v => {
-    this.setState({temp: v})
+    if (this.props.debounce != null) {
+      this.setState({temp: v})
+    } else {
+      this.onChange(v)
+    }
   }
   render() {
     let props = this.props

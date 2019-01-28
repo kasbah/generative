@@ -126,12 +126,14 @@ export default class App extends Component {
             label="Rows:"
             max={100}
             value={y}
+            debounce
             onChange={v => this.setState({y: v})}
           />
           <NumberInput
             label="Columns:"
             max={100}
             value={x}
+            debounce
             onChange={v => this.setState({x: v})}
           />
           <NumberInput
