@@ -150,7 +150,7 @@ export default class App extends Component {
           />
           <NumberInput
             label="Gap between squares (px):"
-            min={-500}
+            min={-100}
             max={500}
             value={gap}
             onChange={v => this.setState({gap: v})}
