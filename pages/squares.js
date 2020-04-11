@@ -170,6 +170,7 @@ export default class App extends Component {
           />
           <div style={{display: "flex", marginTop: 20}}>
             <ColorPicker
+              defaultColor={this.default.highlightColor}
               color={highlightColor}
               onChange={({color}) => this.setState({highlightColor: color})}
               placement="topLeft"
@@ -181,6 +182,7 @@ export default class App extends Component {
           </div>
           <div style={{display: "flex"}}>
             <ColorPicker
+              defaultColor={this.default.backgroundColor}
               color={backgroundColor}
               onChange={({color}) => this.setState({backgroundColor: color})}
               placement="topLeft"
@@ -193,6 +195,7 @@ export default class App extends Component {
           <div style={{display: "flex"}}>
             <ColorPicker
               color={squareColor}
+              defaultColor={this.default.squareColor}
               onChange={({color}) => this.setState({squareColor: color})}
               placement="topLeft"
               enableAlpha={false}
