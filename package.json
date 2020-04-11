@@ -25,6 +25,7 @@
     "semantic-ui-react": "^0.82.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.9.0",
     "file-loader": "^1.1.11",
     "mkdirp": "^0.5.1",
     "rss": "^1.2.2",

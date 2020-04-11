@@ -9,7 +9,7 @@ function parse(str, {returnIgnored} = {}) {
   )
   try {
     parser.feed(str)
-    return parser.results[0]
+    return parser.results[0] || []
   } catch (e) {
     console.error(e)
   }
