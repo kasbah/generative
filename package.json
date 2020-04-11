@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next",
     "build:grammar": "nearleyc pages/lautmaler/grammar.ne --out pages/lautmaler/grammar.js",
-    "build": "yarn build:grammer && next build",
+    "build": "yarn build:grammar && next build",
     "export": "next export && ./make_rss",
     "start": "next start"
   },
