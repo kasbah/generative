@@ -2,8 +2,8 @@ import React, {Component} from "react"
 import Head from "next/head"
 import Link from "next/link"
 
-import Meta from "../../components/Meta"
-import parse from "./parse"
+import Meta from "../components/Meta"
+import parse from "../lautmaler/parse"
 
 export default class App extends Component {
   constructor(...args) {
