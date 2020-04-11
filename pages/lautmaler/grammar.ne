@@ -1,4 +1,12 @@
-main -> (sentence period _):* {% ([sentences]) => sentences.map(s => filter(flatten(s))[0]) %}
+main -> sentence _ (period _ sentence):* _ period:? _ {%
+    function (d) {
+      const sentence = d[0]
+	  const sentences = d[2]
+	  return [sentence].concat(sentences.map(s => filter(flatten(s))[0]))
+    }
+%}
+
+#{% (sentence, [sentences]) =>  %}
 
 period -> "." {% () => null %}
 
@@ -9,7 +17,7 @@ sentence -> subject (__ subject):* (__ verb):* {%
         verb: filter(flatten(verb))[0]
       }
     }
-  %}
+%}
 
 subject -> "ba" |  "ma" |  "na" | "ke" | "di"
 
