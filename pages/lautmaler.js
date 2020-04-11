@@ -5,9 +5,10 @@ import Link from "next/link"
 import Meta from "../components/Meta"
 import parse from "../lautmaler/parse"
 
-const defaultText = "na ke di."
+const defaultText = ""
 
 export default function Lautmaler(props) {
+  const [text, setText] = useState(defaultText)
   const [tree, setTree] = useState(parse(defaultText))
   return (
     <div style={{display: "flex", flexDirection: "column", height: "100vh"}}>
@@ -21,38 +22,50 @@ export default function Lautmaler(props) {
           imageHeight="635"
         />
       </Head>
+      <div style={{flexGrow: 1, display: "flex", margin: 10}}>
+        <SvgTree tree={tree} />
+      </div>
       <div
-        style={{flexGrow: 1, display: "flex", flexWrap: "nowrap", margin: 10}}
+        style={{
+          height: "25vh",
+          display: "flex",
+          flexWrap: "nowrap",
+          width: "100%"
+        }}
       >
-        <div style={{margin: 10}}>
-          <textarea
-            onChange={(e) => setTree(parse(e.target.value))}
-            rows="10"
-            cols="40"
-            placeholder={defaultText}
-          />
-        </div>
-        <div>
+        <textarea
+          style={{width: "70%", margin: 10}}
+          onChange={(e) => {
+            setTree(parse(e.target.value))
+            setText(e.target.value)
+          }}
+          rows="10"
+          cols="40"
+          value={text}
+        />
+        <div style={{width: "30%", maxHeight: "25vh", overflow: "auto"}}>
           <pre>{JSON.stringify(tree, null, 2)}</pre>
         </div>
       </div>
-      <div style={{flexGrow: 1, display: "flex", margin: 10}}>
-        <svg
-          id="svg"
-          width="100%"
-          viewBox={getViewBox(tree)}
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {tree &&
-            tree.map &&
-            tree.map((line, i) =>
-              line.subjects.map((s, j) => (
-                <g transform={`translate(${110 * j} ${110 * i})`}>{shape(s)}</g>
-              ))
-            )}
-        </svg>
-      </div>
     </div>
+  )
+}
+
+function SvgTree({tree}) {
+  return (
+    <svg
+      id="svg"
+      width="100%"
+      height="70vh"
+      viewBox={getViewBox(tree)}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {tree.map((line, i) =>
+        line.subjects.map((s, j) => (
+          <g transform={`translate(${110 * j} ${110 * i})`}>{shape(s)}</g>
+        ))
+      )}
+    </svg>
   )
 }
 
