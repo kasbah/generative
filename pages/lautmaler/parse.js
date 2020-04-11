@@ -22,7 +22,7 @@ function parse(str, {returnIgnored} = {}) {
       parser.restore(info)
       ignored += word
     }
-    const component = parser.results[0]
+    const component = parser.results[0] || []
     if (!failed) {
       if (Object.keys(prev.component) > 0 && equals(component, prev.component)) {
         parser.restore(info)
