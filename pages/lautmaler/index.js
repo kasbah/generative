@@ -3,11 +3,14 @@ import Head from "next/head"
 import Link from "next/link"
 
 import Meta from "../../components/Meta"
+import parse from "./parse"
 
 export default class App extends Component {
   constructor(...args) {
     super(...args)
-    this.default = {}
+    this.default = {
+      tree: null,
+    }
     this.state = this.default
   }
   render() {
@@ -23,7 +26,12 @@ export default class App extends Component {
             imageHeight="635"
           />
         </Head>
-        <div> hello </div>
+        <textarea
+          onChange={(e) => this.setState({tree: parse(e.target.value)})}
+          rows="10"
+          cols="80"
+        />
+        <pre>{JSON.stringify(this.state.tree, null, 2)}</pre>
       </>
     )
   }

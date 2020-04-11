@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "next",
-    "build": "next build",
+    "build:grammar": "nearleyc pages/lautmaler/grammar.ne --out pages/lautmaler/grammar.js",
+    "build": "yarn build:grammer && next build",
     "export": "next export && ./make_rss",
     "start": "next start"
   },
@@ -13,6 +14,7 @@
     "@zeit/next-css": "^1.0.1",
     "js-file-download": "^0.4.4",
     "lodash": "^4.17.11",
+    "nearley": "^2.19.1",
     "next": "^7.0.2",
     "rc-color-picker": "^1.2.6",
     "rc-slider": "^8.6.4",
