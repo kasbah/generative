@@ -69,6 +69,7 @@ function SvgTree({tree}) {
 function SvgTreeBody({tree}) {
   const sentences = []
   let i = 0
+  let id = 0
   for (const sentence of tree) {
     const {verbs, subjects} = sentence
     const fli = flipped(sentence)
@@ -81,20 +82,21 @@ function SvgTreeBody({tree}) {
       }
     }
     sentences.push(
-      <g transform={`translate(0 ${110 * line})`}>
+      <g key={id} transform={`translate(0 ${110 * line})`}>
         <Sentence color={color} verbs={verbs} subjects={subjects} />
       </g>
     )
     if (!fli) {
       i += 1
     }
+    id += 1
   }
   return sentences
 }
 
 function Sentence({verbs, subjects, color}) {
   return subjects.map((word, j) => (
-    <g transform={`translate(${112 * j} 0)`}>
+    <g key={j} transform={`translate(${112 * j} 0)`}>
       <Shape word={word} color={color} />
     </g>
   ))
