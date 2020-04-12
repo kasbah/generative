@@ -39,37 +39,29 @@ var grammar = {
         },
     {"name": "period", "symbols": [{"literal":"."}], "postprocess": () => null},
     {"name": "sentence$ebnf$1", "symbols": []},
-    {"name": "sentence$ebnf$1$subexpression$1", "symbols": ["__", "subject"]},
+    {"name": "sentence$ebnf$1$subexpression$1", "symbols": ["verb", "__"]},
     {"name": "sentence$ebnf$1", "symbols": ["sentence$ebnf$1", "sentence$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
     {"name": "sentence$ebnf$2", "symbols": []},
-    {"name": "sentence$ebnf$2$subexpression$1", "symbols": ["__", "verb"]},
+    {"name": "sentence$ebnf$2$subexpression$1", "symbols": ["__", "subject"]},
     {"name": "sentence$ebnf$2", "symbols": ["sentence$ebnf$2", "sentence$ebnf$2$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "sentence", "symbols": ["subject", "sentence$ebnf$1", "sentence$ebnf$2"], "postprocess": 
-        function ([subject, subjects, verb]) {
+    {"name": "sentence", "symbols": ["sentence$ebnf$1", "subject", "sentence$ebnf$2"], "postprocess": 
+        function ([verb, subject, subjects]) {
           return {
             subjects: subject.concat(filter(flatten(subjects))),
-            verb: filter(flatten(verb))[0]
+            verbs: filter(flatten(verb)),
           }
         }
         },
-    {"name": "subject$string$1", "symbols": [{"literal":"b"}, {"literal":"a"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "subject$string$1", "symbols": [{"literal":"n"}, {"literal":"a"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "subject", "symbols": ["subject$string$1"]},
-    {"name": "subject$string$2", "symbols": [{"literal":"m"}, {"literal":"a"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "subject$string$2", "symbols": [{"literal":"k"}, {"literal":"e"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "subject", "symbols": ["subject$string$2"]},
-    {"name": "subject$string$3", "symbols": [{"literal":"n"}, {"literal":"a"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "subject$string$3", "symbols": [{"literal":"d"}, {"literal":"i"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "subject", "symbols": ["subject$string$3"]},
-    {"name": "subject$string$4", "symbols": [{"literal":"k"}, {"literal":"e"}], "postprocess": function joiner(d) {return d.join('');}},
-    {"name": "subject", "symbols": ["subject$string$4"]},
-    {"name": "subject$string$5", "symbols": [{"literal":"d"}, {"literal":"i"}], "postprocess": function joiner(d) {return d.join('');}},
-    {"name": "subject", "symbols": ["subject$string$5"]},
-    {"name": "verb$string$1", "symbols": [{"literal":"f"}, {"literal":"l"}, {"literal":"i"}, {"literal":"p"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "verb$string$1", "symbols": [{"literal":"f"}, {"literal":"l"}, {"literal":"i"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "verb", "symbols": ["verb$string$1"]},
-    {"name": "verb$string$2", "symbols": [{"literal":"f"}, {"literal":"l"}, {"literal":"o"}, {"literal":"p"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "verb$string$2", "symbols": [{"literal":"f"}, {"literal":"l"}, {"literal":"o"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "verb", "symbols": ["verb$string$2"]},
-    {"name": "verb$string$3", "symbols": [{"literal":"r"}, {"literal":"o"}, {"literal":"w"}, {"literal":"k"}], "postprocess": function joiner(d) {return d.join('');}},
-    {"name": "verb", "symbols": ["verb$string$3"]},
-    {"name": "verb$string$4", "symbols": [{"literal":"r"}, {"literal":"a"}, {"literal":"w"}, {"literal":"k"}], "postprocess": function joiner(d) {return d.join('');}},
-    {"name": "verb", "symbols": ["verb$string$4"]},
     {"name": "_$ebnf$1", "symbols": []},
     {"name": "_$ebnf$1", "symbols": ["_$ebnf$1", /[\s]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
     {"name": "_", "symbols": ["_$ebnf$1"], "postprocess": () => null},

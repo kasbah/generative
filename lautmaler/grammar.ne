@@ -6,22 +6,20 @@ main -> sentence _ (period _ sentence):* _ period:? _ {%
     }
 %}
 
-#{% (sentence, [sentences]) =>  %}
-
 period -> "." {% () => null %}
 
-sentence -> subject (__ subject):* (__ verb):* {%
-    function ([subject, subjects, verb]) {
+sentence -> (verb __):* subject (__ subject):* {%
+    function ([verb, subject, subjects]) {
       return {
         subjects: subject.concat(filter(flatten(subjects))),
-        verb: filter(flatten(verb))[0]
+        verbs: filter(flatten(verb)),
       }
     }
 %}
 
-subject -> "ba" |  "ma" |  "na" | "ke" | "di"
+subject -> "na" | "ke" | "di"
 
-verb -> "flip" | "flop" | "rowk" | "rawk"
+verb -> "fli" | "flo" 
 
 # whitespace
 _  -> [\s]:*  {% () => null %}
