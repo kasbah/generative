@@ -37,7 +37,10 @@ export default function Lautmaler(props) {
         <textarea
           style={{width: "70%", margin: 10}}
           onChange={(e) => {
-            setTree(parse(e.target.value))
+            const tree = parse(e.target.value)
+            if (tree != null) {
+              setTree(tree)
+            }
             setText(e.target.value)
           }}
           rows="10"

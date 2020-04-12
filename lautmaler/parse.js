@@ -19,6 +19,8 @@ function parse(str, {returnIgnored} = {}) {
     }
     if (parser.results && parser.results[0] != null) {
       sentences.push(parser.results[0])
+    } else {
+      return null
     }
   }
   return sentences
