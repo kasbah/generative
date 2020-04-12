@@ -68,8 +68,9 @@ function SvgTree({tree}) {
 function SvgTreeBody({tree}) {
   const sentences = []
   let i = 0
-  for (const {verbs, subjects} of tree) {
-    const fli = verbs.includes("fli")
+  for (const sentence of tree) {
+    const {verbs, subjects} = sentence
+    const fli = flipped(sentence)
     let color = "black"
     let line = i
     if (fli) {
@@ -103,8 +104,15 @@ function getViewBox(tree) {
     (columns, sentence) => Math.max(columns, sentence.subjects.length),
     0
   )
-  const rows = tree.filter((s) => !s.verbs.includes("fli")).length
+  const rows = tree.filter((s) => !flipped(s)).length
   return `-1 -1 ${columns * 112} ${rows * 112}`
+}
+
+function flipped(sentence) {
+  return (
+    sentence.subjects.length === 0 ||
+    sentence.verbs.filter((v) => v === "fli").length % 2 === 1
+  )
 }
 
 function Shape({word, color}) {
