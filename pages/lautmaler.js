@@ -30,7 +30,7 @@ export default function Lautmaler(props) {
           height: "25vh",
           display: "flex",
           flexWrap: "nowrap",
-          width: "100%"
+          width: "100%",
         }}
       >
         <textarea
@@ -60,13 +60,21 @@ function SvgTree({tree}) {
       viewBox={getViewBox(tree)}
       xmlns="http://www.w3.org/2000/svg"
     >
-      {tree.map((line, i) =>
-        line.subjects.map((s, j) => (
-          <g transform={`translate(${110 * j} ${110 * i})`}>{shape(s)}</g>
-        ))
-      )}
+      {tree.map(({verbs, subjects}, i) => (
+        <g transform={`translate(0 ${110 * i})`}>
+          <Sentence verbs={verbs} subjects={subjects} />
+        </g>
+      ))}
     </svg>
   )
+}
+
+function Sentence({verbs, subjects}) {
+  return subjects.map((word, j) => (
+    <g transform={`translate(${110 * j} 0)`}>
+      <Shape word={word} />
+    </g>
+  ))
 }
 
 function getViewBox(tree) {
@@ -78,8 +86,8 @@ function getViewBox(tree) {
   return `0 0 ${columns * 110} ${rows * 110}`
 }
 
-function shape(s) {
-  switch (s) {
+function Shape({word}) {
+  switch (word) {
     case "na":
       return <rect fill="black" width={100} height={100} />
     case "ke":
