@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
+    "framer-motion": "^1.10.3",
     "js-file-download": "^0.4.4",
     "lodash": "^4.17.11",
     "nearley": "^2.19.1",

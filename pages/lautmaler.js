@@ -1,6 +1,7 @@
 import React, {Component, useState} from "react"
 import Head from "next/head"
 import Link from "next/link"
+import {motion} from "framer-motion"
 
 import Meta from "../components/Meta"
 import parse from "../lautmaler/parse"
@@ -119,7 +120,9 @@ function Shape({word, color}) {
   switch (word) {
     case "na":
       return (
-        <rect
+        <motion.rect
+          initial={{y: -100}}
+          animate={{y: 0}}
           stroke="black"
           strokeWidth={1}
           fill={color}
@@ -129,7 +132,9 @@ function Shape({word, color}) {
       )
     case "ke":
       return (
-        <polygon
+        <motion.polygon
+          initial={{y: 100}}
+          animate={{y: 0}}
           stroke="black"
           strokeWidth={1}
           fill={color}
@@ -138,7 +143,9 @@ function Shape({word, color}) {
       )
     case "di":
       return (
-        <ellipse
+        <motion.ellipse
+          initial={{scale: 2}}
+          animate={{scale: 1}}
           stroke="black"
           strokeWidth={1}
           cx={50}
