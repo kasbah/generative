@@ -68,23 +68,27 @@ function SvgTree({tree}) {
 function SvgTreeBody({tree}) {
   const sentences = []
   let i = 0
-
   for (const {verbs, subjects} of tree) {
+    const fli = verbs.includes("fli")
+    let color = "black"
+    let line = i
+    if (fli) {
+      color = "white"
+      line -= 1
+    }
     sentences.push(
-      <g transform={`translate(0 ${110 * i++})`}>
-        <Sentence verbs={verbs} subjects={subjects} />
+      <g transform={`translate(0 ${110 * line})`}>
+        <Sentence color={color} verbs={verbs} subjects={subjects} />
       </g>
     )
+    if (!fli) {
+      i += 1
+    }
   }
   return sentences
 }
 
-function Sentence({verbs, subjects}) {
-  const fli = verbs.includes("fli")
-  let color = "black"
-  if (fli) {
-    color = "white"
-  }
+function Sentence({verbs, subjects, color}) {
   return subjects.map((word, j) => (
     <g transform={`translate(${110 * j} 0)`}>
       <Shape word={word} color={color} />
@@ -97,17 +101,41 @@ function getViewBox(tree) {
     (columns, sentence) => Math.max(columns, sentence.subjects.length),
     0
   )
-  const rows = tree.length
+  const rows = tree.filter((s) => !s.verbs.includes("fli")).length
   return `0 0 ${columns * 110} ${rows * 110}`
 }
 
 function Shape({word, color}) {
   switch (word) {
     case "na":
-      return <rect fill={color} width={100} height={100} />
+      return (
+        <rect
+          stroke="black"
+          strokeWidth={1}
+          fill={color}
+          width={100}
+          height={100}
+        />
+      )
     case "ke":
-      return <polygon fill={color} points="0,100 50,0 100,100" />
+      return (
+        <polygon
+          stroke="black"
+          strokeWidth={1}
+          fill={color}
+          points="0,100 50,0 100,100"
+        />
+      )
     case "di":
-      return <ellipse cx={50} cy={50} rx={50} fill={color} />
+      return (
+        <ellipse
+          stroke="black"
+          strokeWidth={1}
+          cx={50}
+          cy={50}
+          rx={50}
+          fill={color}
+        />
+      )
   }
 }
