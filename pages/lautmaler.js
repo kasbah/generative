@@ -74,7 +74,9 @@ function SvgTreeBody({tree}) {
     let line = i
     if (fli) {
       color = "white"
-      line -= 1
+      if (line > 0) {
+        line -= 1
+      }
     }
     sentences.push(
       <g transform={`translate(0 ${110 * line})`}>
@@ -90,7 +92,7 @@ function SvgTreeBody({tree}) {
 
 function Sentence({verbs, subjects, color}) {
   return subjects.map((word, j) => (
-    <g transform={`translate(${110 * j} 0)`}>
+    <g transform={`translate(${112 * j} 0)`}>
       <Shape word={word} color={color} />
     </g>
   ))
@@ -102,7 +104,7 @@ function getViewBox(tree) {
     0
   )
   const rows = tree.filter((s) => !s.verbs.includes("fli")).length
-  return `0 0 ${columns * 110} ${rows * 110}`
+  return `-1 -1 ${columns * 112} ${rows * 112}`
 }
 
 function Shape({word, color}) {
