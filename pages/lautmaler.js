@@ -60,19 +60,34 @@ function SvgTree({tree}) {
       viewBox={getViewBox(tree)}
       xmlns="http://www.w3.org/2000/svg"
     >
-      {tree.map(({verbs, subjects}, i) => (
-        <g transform={`translate(0 ${110 * i})`}>
-          <Sentence verbs={verbs} subjects={subjects} />
-        </g>
-      ))}
+      <SvgTreeBody tree={tree} />
     </svg>
   )
 }
 
+function SvgTreeBody({tree}) {
+  const sentences = []
+  let i = 0
+
+  for (const {verbs, subjects} of tree) {
+    sentences.push(
+      <g transform={`translate(0 ${110 * i++})`}>
+        <Sentence verbs={verbs} subjects={subjects} />
+      </g>
+    )
+  }
+  return sentences
+}
+
 function Sentence({verbs, subjects}) {
+  const fli = verbs.includes("fli")
+  let color = "black"
+  if (fli) {
+    color = "white"
+  }
   return subjects.map((word, j) => (
     <g transform={`translate(${110 * j} 0)`}>
-      <Shape word={word} />
+      <Shape word={word} color={color} />
     </g>
   ))
 }
@@ -86,13 +101,13 @@ function getViewBox(tree) {
   return `0 0 ${columns * 110} ${rows * 110}`
 }
 
-function Shape({word}) {
+function Shape({word, color}) {
   switch (word) {
     case "na":
-      return <rect fill="black" width={100} height={100} />
+      return <rect fill={color} width={100} height={100} />
     case "ke":
-      return <polygon fill="black" points="0,100 50,0 100,100" />
+      return <polygon fill={color} points="0,100 50,0 100,100" />
     case "di":
-      return <ellipse cx={50} cy={50} rx={50} fill="black" />
+      return <ellipse cx={50} cy={50} rx={50} fill={color} />
   }
 }
