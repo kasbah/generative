@@ -1,11 +1,16 @@
-main -> (verb __):* subject (__ subject):* {%
-    function ([verb, subject, subjects]) {
+main -> (_ word _):* {%
+    function (d) {
+	  const words = filter(flatten(d))
       return {
-        subjects: subject.concat(filter(flatten(subjects))),
-        verbs: filter(flatten(verb)),
+        subjects: words.reduce((subjects, w) => subjects.concat(w.subject ? w.subject : []), []),
+        verbs: words.reduce((verbs, w) => verbs.concat(w.verb ? w.verb : []), [])
       }
     }
 %}
+
+word -> 
+    subject {% d => ({subject: flatten(d)}) %}
+  | verb    {% d => ({verb: flatten(d)}) %}
 
 subject -> "na" | "ke" | "di"
 

@@ -140,4 +140,5 @@ function Shape({word, color}) {
         />
       )
   }
+  return null
 }

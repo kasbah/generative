@@ -26,19 +26,19 @@ var grammar = {
     Lexer: undefined,
     ParserRules: [
     {"name": "main$ebnf$1", "symbols": []},
-    {"name": "main$ebnf$1$subexpression$1", "symbols": ["verb", "__"]},
+    {"name": "main$ebnf$1$subexpression$1", "symbols": ["_", "word", "_"]},
     {"name": "main$ebnf$1", "symbols": ["main$ebnf$1", "main$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "main$ebnf$2", "symbols": []},
-    {"name": "main$ebnf$2$subexpression$1", "symbols": ["__", "subject"]},
-    {"name": "main$ebnf$2", "symbols": ["main$ebnf$2", "main$ebnf$2$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "main", "symbols": ["main$ebnf$1", "subject", "main$ebnf$2"], "postprocess": 
-        function ([verb, subject, subjects]) {
-          return {
-            subjects: subject.concat(filter(flatten(subjects))),
-            verbs: filter(flatten(verb)),
-          }
-        }
+    {"name": "main", "symbols": ["main$ebnf$1"], "postprocess": 
+            function (d) {
+        const words = filter(flatten(d))
+              return {
+                subjects: words.reduce((subjects, w) => subjects.concat(w.subject ? w.subject : []), []),
+                verbs: words.reduce((verbs, w) => verbs.concat(w.verb ? w.verb : []), [])
+              }
+            }
         },
+    {"name": "word", "symbols": ["subject"], "postprocess": d => ({subject: flatten(d)})},
+    {"name": "word", "symbols": ["verb"], "postprocess": d => ({verb: flatten(d)})},
     {"name": "subject$string$1", "symbols": [{"literal":"n"}, {"literal":"a"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "subject", "symbols": ["subject$string$1"]},
     {"name": "subject$string$2", "symbols": [{"literal":"k"}, {"literal":"e"}], "postprocess": function joiner(d) {return d.join('');}},
