@@ -1,19 +1,27 @@
-const nearley = require('nearley')
-const grammar = require('./grammar')
+const nearley = require("nearley")
+const grammar = require("./grammar")
 
 function parse(str, {returnIgnored} = {}) {
-  const parser = new nearley.Parser(
-    grammar.ParserRules,
-    grammar.ParserStart,
-    {keepHistory: true}
-  )
-  try {
-    parser.feed(str)
-    return parser.results[0] || []
-  } catch (e) {
-    console.error(e)
+  const lines = str.split("\n").map((s) => s.trim())
+  const sentences = []
+  for (const line of lines) {
+    const parser = new nearley.Parser(
+      grammar.ParserRules,
+      grammar.ParserStart,
+      {
+        keepHistory: true,
+      }
+    )
+    try {
+      parser.feed(line)
+    } catch (e) {
+      console.error(e)
+    }
+    if (parser.results && parser.results[0] != null) {
+      sentences.push(parser.results[0])
+    }
   }
-  return []
+  return sentences
 }
 
 module.exports = parse

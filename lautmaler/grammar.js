@@ -26,25 +26,12 @@ var grammar = {
     Lexer: undefined,
     ParserRules: [
     {"name": "main$ebnf$1", "symbols": []},
-    {"name": "main$ebnf$1$subexpression$1", "symbols": ["period", "_", "sentence"]},
+    {"name": "main$ebnf$1$subexpression$1", "symbols": ["verb", "__"]},
     {"name": "main$ebnf$1", "symbols": ["main$ebnf$1", "main$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "main$ebnf$2", "symbols": ["period"], "postprocess": id},
-    {"name": "main$ebnf$2", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "main", "symbols": ["sentence", "_", "main$ebnf$1", "_", "main$ebnf$2", "_"], "postprocess": 
-            function (d) {
-              const sentence = d[0]
-        const sentences = d[2]
-        return [sentence].concat(sentences.map(s => filter(flatten(s))[0]))
-            }
-        },
-    {"name": "period", "symbols": [{"literal":"."}], "postprocess": () => null},
-    {"name": "sentence$ebnf$1", "symbols": []},
-    {"name": "sentence$ebnf$1$subexpression$1", "symbols": ["verb", "__"]},
-    {"name": "sentence$ebnf$1", "symbols": ["sentence$ebnf$1", "sentence$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "sentence$ebnf$2", "symbols": []},
-    {"name": "sentence$ebnf$2$subexpression$1", "symbols": ["__", "subject"]},
-    {"name": "sentence$ebnf$2", "symbols": ["sentence$ebnf$2", "sentence$ebnf$2$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "sentence", "symbols": ["sentence$ebnf$1", "subject", "sentence$ebnf$2"], "postprocess": 
+    {"name": "main$ebnf$2", "symbols": []},
+    {"name": "main$ebnf$2$subexpression$1", "symbols": ["__", "subject"]},
+    {"name": "main$ebnf$2", "symbols": ["main$ebnf$2", "main$ebnf$2$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "main", "symbols": ["main$ebnf$1", "subject", "main$ebnf$2"], "postprocess": 
         function ([verb, subject, subjects]) {
           return {
             subjects: subject.concat(filter(flatten(subjects))),

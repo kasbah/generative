@@ -1,14 +1,4 @@
-main -> sentence _ (period _ sentence):* _ period:? _ {%
-    function (d) {
-      const sentence = d[0]
-	  const sentences = d[2]
-	  return [sentence].concat(sentences.map(s => filter(flatten(s))[0]))
-    }
-%}
-
-period -> "." {% () => null %}
-
-sentence -> (verb __):* subject (__ subject):* {%
+main -> (verb __):* subject (__ subject):* {%
     function ([verb, subject, subjects]) {
       return {
         subjects: subject.concat(filter(flatten(subjects))),
