@@ -13,8 +13,8 @@ const App = ({paper}) => {
   const [ballPos, setBallPos] = React.useState(paper.view.center)
   return (
     <Tool
-      onMouseMove={({event}) => {
-        const mouse = new paper.Point(event.clientX, event.clientY)
+      onMouseMove={(event) => {
+        const mouse = event.getPoint()
         setMousePos(mouse)
         setBallPos((pos) => {
           const toNext = mouse.subtract(pos)
