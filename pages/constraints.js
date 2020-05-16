@@ -16,7 +16,13 @@ const App = ({paper}) => {
       onMouseMove={({event}) => {
         const mouse = new paper.Point(event.clientX, event.clientY)
         setMousePos(mouse)
-        setBallPos((pos) => constrainDistance(pos, mouse, LENGTH))
+        setBallPos((pos) => {
+          const toNext = mouse.subtract(pos)
+          if (toNext.length > LENGTH) {
+            pos = constrainDistance(pos, mouse, LENGTH)
+          }
+          return pos
+        })
       }}
     >
       <Circle
