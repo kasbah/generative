@@ -21,10 +21,17 @@ const App = ({paper}) => {
   )
 }
 
-export default (props) => (
-  <PaperContainer>
-    {renderWithPaperScope((paper) => (
-      <App {...props} paper={paper} />
-    ))}
-  </PaperContainer>
-)
+export default (props) => {
+  return (
+    <PaperContainer
+      canvasProps={{
+        resize: "true",
+        style: {width: "100%", height: "100vh", cursor: "none"},
+      }}
+    >
+      {renderWithPaperScope((paper) => (
+        <App {...props} paper={paper} />
+      ))}
+    </PaperContainer>
+  )
+}
