@@ -774,6 +774,12 @@
     style-value-types "^3.1.7"
     tslib "^1.10.0"
 
+"@psychobolt/react-paperjs@https://github.com/kasbah/react-paperjs#next":
+  version "0.0.56"
+  resolved "https://github.com/kasbah/react-paperjs#6ebdf33ea17690d4401de0ed5a9697c1c8ba36ec"
+  dependencies:
+    react-is "^16.8.6"
+
 "@semantic-ui-react/event-stack@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@semantic-ui-react/event-stack/-/event-stack-2.0.0.tgz#d2d568a9fb0ee204b0e40d6b73ac2a2403c08451"
@@ -3602,6 +3608,11 @@ pako@~1.0.5:
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
+paper@^0.12.4:
+  version "0.12.4"
+  resolved "https://registry.yarnpkg.com/paper/-/paper-0.12.4.tgz#c6b01fea26cb30d15a4f7abeb3465c45ad7b49ae"
+  integrity sha512-KypUqX2uXJZOX2j55RcgnBzK7weau9WKVCB+3e0E1Wa9yxlV7z6BsSrrJxmLNIC0pATbjcy9pJYDutQ7rIhnpQ==
+
 parallel-transform@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/parallel-transform/-/parallel-transform-1.2.0.tgz#9049ca37d6cb2182c3b1d2c720be94d14a5814fc"
@@ -4111,7 +4122,7 @@ react-error-overlay@4.0.0:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
   integrity sha512-FlsPxavEyMuR6TjVbSSywovXSEyOg6ZDj5+Z8nbsRl9EkOzAhEIcS+GLoQDC5fz/t9suhUXWmUrOBrgeUvrMxw==
 
-react-is@^16.12.0, react-is@^16.8.1:
+react-is@^16.12.0, react-is@^16.8.1, react-is@^16.8.6:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
