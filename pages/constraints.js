@@ -11,20 +11,19 @@ const LENGTH = 50
 const App = ({paper}) => {
   const [mousePos, setMousePos] = React.useState(paper.view.center)
   const [ballPos, setBallPos] = React.useState(paper.view.center)
+  function mouseHandler(event) {
+    const mouse = event.getPoint()
+    setMousePos(mouse)
+    setBallPos((pos) => {
+      const toNext = mouse.subtract(pos)
+      if (toNext.length > LENGTH) {
+        pos = constrainDistance(pos, mouse, LENGTH)
+      }
+      return pos
+    })
+  }
   return (
-    <Tool
-      onMouseMove={(event) => {
-        const mouse = event.getPoint()
-        setMousePos(mouse)
-        setBallPos((pos) => {
-          const toNext = mouse.subtract(pos)
-          if (toNext.length > LENGTH) {
-            pos = constrainDistance(pos, mouse, LENGTH)
-          }
-          return pos
-        })
-      }}
-    >
+    <Tool onMouseMove={mouseHandler} onMouseDown={mouseHandler}>
       <Circle
         center={mousePos}
         radius={LENGTH}
